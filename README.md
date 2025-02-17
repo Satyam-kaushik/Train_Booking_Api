@@ -5,13 +5,14 @@ The Railway Management System is a web-based platform that allows users to check
 
 ## Tech Stack
 - **Backend:** Node.js with Express.js
-- **Database:** MySQL/PostgreSQL
+- **Database:** MySQL
 - **Authentication:** JWT (JSON Web Token)
+- **Password Security**Bcrypt
 - **Concurrency Handling:** Transactions and Row Locking
 
 ## Features
 ### User
-- Register and login
+- Register and login/logout
 - Check train availability between two stations
 - View seat availability
 - Book a seat (Handles race conditions)
@@ -25,7 +26,7 @@ The Railway Management System is a web-based platform that allows users to check
 ## Installation
 ### Prerequisites
 - Node.js installed
-- MySQL/PostgreSQL installed and running
+- MySQL installed and running
 
 ### Steps
 1. Clone the repository:
@@ -58,17 +59,21 @@ The Railway Management System is a web-based platform that allows users to check
 
 ## API Endpoints
 ### Authentication
-- **POST /api/register** - Register a new user
-- **POST /api/login** - Login user
+- **POST /user/register** - Register a new user
+- **POST /user/login** - Login user
+
+- **POST /admin/register** - Register a new admin
+- **POST /admin/login** - Login admin
 
 ### Train Management (Admin)
-- **POST /api/trains** - Add a new train
-- **PUT /api/trains/:id** - Update train details
+- **POST /admin/addTrain** - Add a new train
+- **PUT /admin/update-seats/:id** - Update train seat details
 
 ### User Actions
-- **GET /api/trains?source=xxx&destination=yyy** - Check train availability
-- **POST /api/bookings** - Book a seat
+- **GET /user/availability?source=xxx&destination=yyy** - Check train availability
+- **POST /user/book** - Book a seat
 - **GET /api/bookings/:id** - Get booking details
+- **GET/user/getAllbookings** - Get all booking details of a user
 
 ## Concurrency Handling
 To prevent race conditions while booking seats, the system implements:
@@ -76,9 +81,3 @@ To prevent race conditions while booking seats, the system implements:
 - Database transactions to ensure atomic operations
 - Proper error handling and rollback in case of failures
 
-## Contribution
-1. Fork the repository
-2. Create a new branch (`feature/your-feature`)
-3. Commit changes (`git commit -m 'Added new feature'`)
-4. Push to the branch (`git push origin feature/your-feature`)
-5. Open a Pull Request
